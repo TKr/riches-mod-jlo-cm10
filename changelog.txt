@@ -1,0 +1,72 @@
+Riches Kernel for CM10 Sony MSM7x27a Devices
+
+Kernel Version: 3.0.8
+Devices: Tapioca (Tipo), Mesona (Miro), JLO (J), Nanhu (E)
+
+> ---Version 0.1---
+> Initial Upload
+> Added Changelog
+> Compiled using latest Linaro 4.8 toolchain
+> I/O Schedulers: added sio and made it default
+> CPU Governers: added smartass2, minmax, ondemandX & interactiveX
+> CPU FREQ: Added smooth scrolling
+> Frandom support
+> ------------------
+
+> ---Version 0.2---
+> 1Ghz Overclock Tapioca & Mesona
+> 1.3Ghz Overclock JLO & Nanhu
+> Added 800Mhz freqency bin JLO & Nanhu
+> Removed smooth scrolling
+> ------------------
+
+> ---Version 0.3---
+> 1.3Ghz overclock all devices
+> Add 900Mhz freqency bin all devices
+> Dual Recovery (CWM & TWRP)
+> Fixed random reboots
+> SoftIRQ: Reduced latencies
+> Compile optimisations
+> Set default MIN & MAX freqencies all devices
+> USB: Fast Charge support
+> ------------------
+
+> ---Version 0.4---
+> Compiled with latest linaro 4.8 toolchain (10/13)
+> GPU: Overclock 143Mhz from 133Mhz (Tapioca & Mesona)
+> Added Dynamic File Sync 1.2
+> Updated LZO to current upstream version
+> Enabled unaligned memory access for faster boot
+> Reduced RAM usage
+> Changes to optimise kernel for speed not size
+> Linaro compiling optimizations
+> Removed kernel core debug support
+> Removed debug_fs support
+> Remove debugging support from device specific drivers
+> Tuned device vibration intensity to be more gentle
+> Removed interactiveX & userspace CPU Govrs.
+
+> ---Version 0.5---
+Optimized dymanic file sync
+Fix source bugs
+JLO: GPU OC 355Mhz
+Tapioca & Mesona: GPU OC 173Mhz
+Optimised kernel for speed not size
+More compiling optimizations
+Up to 50% improvement in IP/TCP using AES128/SHA1
+Small touchscreen improvements
+Use glibc version of lib/memcopy & lib/string (up to 10 times faster)
+Removed smooth scrolling
+I/O tweaks
+
+> ---Version 0.6---
+1.53Ghz overclock
+Compiled with -O3
+Dymanic readahead support (128k)
+MIUI support (ramdisk changes)
+
+> ---Version 0.6.2---
+Help prevented wakeup issue (no display)
+Removed some agressive compiling flags
+Remove debugging from touchscreen
+200Mhz GPU OC (Miro/Tipo)

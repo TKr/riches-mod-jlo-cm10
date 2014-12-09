@@ -1,0 +1,11 @@
+python mkelf.py -o boot.img zImage@0x00208000 1@0x01400000,ramdisk 2@cmdline
+
+MSM7x27a addresses
+
+zImage	@0x00208000
+ramdisk	@0x01400000
+bootcmd @cmdline
+
+
+
+

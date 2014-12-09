@@ -1,0 +1,39 @@
+#Build script for cm10 mesona kernel
+echo "Building & packing kernel for CM10 Mesona"
+
+#remove any cross device incompatiblities
+make clean && make mrproper
+
+# select toolchain
+SEL_TC=/home/joey/android/toolchains/linaro-4.8-10-13/bin/
+
+echo "Compiling kernel & modules ..."
+
+# make tapioca defconfig
+ARCH=arm SUBARCH=arm CROSS_COMPILE=${SEL_TC}arm-eabi- make cm_tamsui_mes_defconfig
+# compile kernel
+ARCH=arm SUBARCH=arm CROSS_COMPILE=${SEL_TC}arm-eabi- make -j66
+
+if [ -f arch/arm/boot/zImage ]
+echo "Completed Mesona build"
+
+then
+
+echo "copy zImage & modules to kernel-extracted dir (riches-cm10-mesona) ..."
+cp arch/arm/boot/zImage ~/android/kernel/kernel-extracted/riches-cm10-mesona/.
+find . -name "*.ko" -exec cp {} ~/android/kernel/kernel-extracted/riches-cm10-mesona \;
+
+echo "Packing the kernel using mkelf.py"
+cd ~/android/kernel/kernel-extracted/riches-cm10-mesona/
+python mkelf.py -o boot.img zImage@0x00208000 1@0x01400000,ramdisk 2@cmdline
+
+echo "Cut-paste boot.img to kernel-compiled dir (Riches-Kernel-CM10-Mesona) ..."
+cp boot.img /home/joey/android/kernel/kernels-compiled/Riches-Kernel-CM10-Mesona
+rm boot.img
+
+cd ~/android/kernel/kernel-sources/riches-kernel-sony-msm7x27a-legacy/
+echo "Packed boot.img"
+
+echo "Done"
+
+fi 

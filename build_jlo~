@@ -1,0 +1,42 @@
+#Build script for cm10 JLO kernel
+echo "Building & packing kernel for CM10 JLO"
+
+#remove any cross device incompatiblities
+make clean && make mrproper
+
+# select toolchain
+SEL_TC=/home/tkr/sony_kernel/android-toolchain-eabi/bin/
+
+echo "Compiling kernel & modules ..."
+
+# make tapioca defconfig
+#ARCH=arm SUBARCH=arm CROSS_COMPILE=${SEL_TC}arm-eabi- make cm_tamsui_jlo_defconfig
+#ARCH=arm SUBARCH=arm CROSS_COMPILE=${SEL_TC}arm-eabi- make menuconfig
+#exit 0
+cp .config_new .config
+# compile kernel
+ARCH=arm SUBARCH=arm CROSS_COMPILE=${SEL_TC}arm-eabi- make -j1
+
+if [ -f arch/arm/boot/zImage ]
+echo "Completed Jlo build"
+
+then
+
+echo "copy zImage & modules to kernel-extracted dir (riches-cm10-JLO) ..."
+cp arch/arm/boot/zImage ~/sony_kernel/kernel/.
+find . -name "*.ko" -exec cp {} ~/sony_kernel/kernel \;
+
+echo "Packing the kernel using mkelf.py"
+cd ~/sony_kernel/kernel/
+python mkelf.py -o boot.img zImage@0x00208000 1@0x01400000,ramdisk 2@cmdline
+
+echo "Cut-paste boot.img to kernel-compiled dir (Riches-Kernel-CM10-JLO) ..."
+cp boot.img ./ready/
+rm boot.img
+
+cd ~/sony_kernel/riches-kernel-sony-msm7x27a-legacy-master/
+echo "Packed boot.img"
+
+echo "Done"
+
+fi 

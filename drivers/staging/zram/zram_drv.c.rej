@@ -1,0 +1,32 @@
+--- drivers/staging/zram/zram_drv.c
++++ drivers/staging/zram/zram_drv.c
+@@ -32,9 +35,29 @@
+ #include <linux/genhd.h>
+ #include <linux/highmem.h>
+ #include <linux/slab.h>
++
++#ifdef USING_LZ4
++#include <linux/lz4.h>
++#else
+ #include <linux/lzo.h>
++#endif
++
++#ifdef USING_LZ4
++#define lzo1x_1_compress lz4_compress
++#define lzo1x_decompress_safe lz4_decompress_unknownoutputsize
++#define LZO1X_MEM_COMPRESS LZ4_MEM_COMPRESS
++#define LZO_E_OK 0
++
++#define pr_err printk
++#define pr_debug printk
++#define pr_info printk
++#define pr_warning printk
++
++#endif
++
+ #include <linux/string.h>
+ #include <linux/vmalloc.h>
++
+ #ifdef CONFIG_ZRAM_FOR_ANDROID
+ #include <linux/swap.h>
+ #endif /* CONFIG_ZRAM_FOR_ANDROID */
