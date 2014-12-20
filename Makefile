@@ -578,7 +578,8 @@ else
 KBUILD_CFLAGS	+= -O3 
 endif
 
-include $(srctree)/arch/$(SRCARCH)/Makefile
+# TKr
+#include $(srctree)/arch/$(SRCARCH)/Makefile
 
 ifneq ($(CONFIG_FRAME_WARN),0)
 KBUILD_CFLAGS += $(call cc-option,-Wframe-larger-than=${CONFIG_FRAME_WARN})

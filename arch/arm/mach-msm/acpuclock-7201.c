@@ -59,19 +59,30 @@ struct pll_config {
 /* l, m, n */
 static struct pll_config pll4_cfg_tbl[] = {
 	{ 36, 1, 2 }, /* 700.8 MHz */
+	{ 42, 1, 2 }, /* 800 MHz */
 	{ 52, 1, 2 }, /* 1008 MHz */
-	{ 62, 0, 1 }, /* 1200 MHZ */
+	{ 57, 1, 2 }, /* 1008 MHz */
+	
+	{ 63, 1, 2 }, /* 1209 MHz test */
+	{ 64, 1, 2 }, /* 1228 MHz test */
+
+
+	{ 66, 1, 3 }, /* 1267 MHz test */
+	{ 125, 1, 2 },
+
+	{ 62, 0, 1 }, /* 1200 MHZ */ /* real: 1190.4 MHz */
 	{ 63, 0, 1 }, /* 1209.6 MHz */
-	{ 64, 0, 1 }, /* 1217 MHz */
-	{ 65, 0, 1 }, /* 1225 MHz */
-	{ 66, 0, 1 }, /* 1250 MHz */
-	{ 67, 0, 1 }, /* 1275 Mhz */
-	{ 68, 0, 1 }, /* 1300 MHz */
+	{ 64, 0, 1 }, /* 1228 MHz */
+	{ 65, 0, 1 }, /* 1248 MHz */
+	{ 66, 0, 1 }, /* 1267 MHz */
+	{ 67, 0, 1 }, /* 1286 Mhz */
+	{ 68, 0, 1 }, /* 1305 MHz */
 	{ 69, 0, 1 }, /* 1325 MHz */
-	{ 70, 0, 1 }, /* 1350 MHz */
-	{ 71, 0, 1 }, /* 1370 MHz */
-	{ 72, 0, 1 }, /* 1380 MHz */
+	{ 70, 0, 1 }, /* 1344 MHz */
+	{ 71, 0, 1 }, /* 1363 MHz */
+	{ 72, 0, 1 }, /* 1382 MHz */
 	{ 73, 0, 1 }, /* 1401.6 MHz */
+	{ 74, 0, 1 }, /* 1420.8 MHz */
 	{ 60, 0, 1 }
 };
 
@@ -273,26 +284,43 @@ static struct clkctl_acpu_speed pll0_960_pll1_196_pll2_1200_pll4_800[] = {
 /* 7627aa PLL4 @ 1008MHz with GSM capable modem */ //JLO-NANHU
 static struct clkctl_acpu_speed pll0_960_pll1_245_pll2_1200_pll4_1008[] = {
 	{ 0, 19200, ACPU_PLL_TCXO, 0, 0, 2400, 3, 0, 30720 },
-	{ 0, 61440, ACPU_PLL_1, 1, 3, 7680, 3, 1, 61440 },
+	{ 1, 61440, ACPU_PLL_1, 1, 3, 7680, 3, 1, 61440 },
 	{ 1, 122880, ACPU_PLL_1, 1, 1, 15360, 3, 2, 61440 },
 	{ 1, 245760, ACPU_PLL_1, 1, 0, 30720, 3, 3, 61440 },
-	{ 0, 300000, ACPU_PLL_2, 2, 3, 37500, 3, 4, 150000 },
+	{ 0, 300000, ACPU_PLL_2, 2, 3, 37500, 3, 4, 122880 },
 	{ 1, 320000, ACPU_PLL_0, 4, 2, 40000, 3, 4, 122880 },
 	{ 1, 480000, ACPU_PLL_0, 4, 1, 60000, 3, 5, 122880 },
-	{ 1, 504000, ACPU_PLL_4, 6, 1, 63000, 3, 6, 150000 },
+	{ 1, 504000, ACPU_PLL_4, 6, 1, 62400, 3, 5, 122880 , &pll4_cfg_tbl[2]},
 	{ 1, 600000, ACPU_PLL_2, 2, 1, 75000, 3, 6, 150000 },
-	{ 1, 700000, ACPU_PLL_4, 6, 0, 87500, 3, 6, 150000 , &pll4_cfg_tbl[0]},
-	{ 1, 960000, ACPU_PLL_0, 4, 0, 120000, 3, 7, 180000 },
-	{ 1, 1008000, ACPU_PLL_4, 6, 0, 126000, 3, 5, 200000, &pll4_cfg_tbl[1]},
-	{ 0, 1050000, ACPU_PLL_2, 2, 0, 131250, 3, 7, 200000}, // hidden, need for stability
-	{ 0, 1100000, ACPU_PLL_2, 2, 0, 137500, 3, 7, 200000}, // hidden, need for stability
+	{ 0, 700000, ACPU_PLL_2, 2, 1, 90000, 3, 6, 150000 },  /// stepping frequency - need for compatibility !
+	{ 1, 800000, ACPU_PLL_4, 6, 0, 100800, 3, 7, 200000 , &pll4_cfg_tbl[1]},
+	{ 1, 960000, ACPU_PLL_0, 4, 0, 120000, 3, 7, 200000 },
+	{ 0, 980000, ACPU_PLL_0, 4, 0, 124000, 3, 7, 200000 }, /// stepping frequency - need for compatibility !
+	{ 1, 1008000, ACPU_PLL_4, 6, 0, 126000, 3, 7, 200000 , &pll4_cfg_tbl[2]},
+	{ 1, 1100000, ACPU_PLL_4, 6, 0, 136800, 3, 7, 200000 , &pll4_cfg_tbl[3]},
 	{ 0, 1152000, ACPU_PLL_2, 2, 0, 144000, 3, 7, 200000}, // hidden, need for stability
-	{ 1, 1200000, ACPU_PLL_2, 2, 0, 150000, 3, 7, 200000}, // stable more or less i think
+	{ 1, 1200000, ACPU_PLL_2, 2, 0, 148800, 3, 7, 200000}, // stable more or less i think
 	{ 0 }
 };
 
 /*
+ * Target frequency: 54.5 * 19200 = 1046400
+
+AHB-kHz: 1046400 / 8 = 130800
+* */
+
+
+
+/*
+
+	{ 1, 1248000, ACPU_PLL_4, 6, 0, 156000, 3, 7, 200000 , &pll4_cfg_tbl[3]}, /// test !!!
+	{ 1, 1267200, ACPU_PLL_4, 6, 0, 158400, 3, 7, 200000 , &pll4_cfg_tbl[4]}, /// test !!!
+
+
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0} }
+
+	{ 1, 1008000, ACPU_PLL_4, 6, 0, 126000, 3, 5, 200000, &pll4_cfg_tbl[1]},
+	{ 1, 504000, ACPU_PLL_4, 6, 1, 63000, 3, 6, 150000 },
 
 	{ 1, 504000, ACPU_PLL_4, 6, 1, 63000, 3, 6, 150000 , &pll4_cfg_tbl[1]},
 	{ 1, 1401600, ACPU_PLL_4, 6, 0, 175200, 3, 7, 200000, &pll4_cfg_tbl[3]},
@@ -1117,7 +1145,12 @@ static void __init acpu_freq_tbl_fixup(void)
 		for (lst->tbl = acpu_freq_tbl; lst->tbl->a11clk_khz; lst->tbl++) {
 			if (lst->tbl->pll == ACPU_PLL_2 &&
 					lst->tbl->a11clk_src_div == 1) { // ==0 ? Backup at 1200 for faster devices (like Xperia J) ? 
-				backup_s = lst->tbl;
+/*
+			if (lst->tbl->pll == ACPU_PLL_0 &&
+					lst->tbl->a11clk_src_div == 0) { // ==0 ? Backup at 1200 for faster devices (like Xperia J) ? 
+
+*/
+			backup_s = lst->tbl;
 				break;
 			}
 		}
@@ -1323,6 +1356,7 @@ struct acpuclk_soc_data acpuclk_7x27a_soc_data __initdata = {
 	.init = acpuclk_7627_init,
 };
 
+/* .max_speed_delta_khz = 504000, */
 struct acpuclk_soc_data acpuclk_7x27aa_soc_data __initdata = {
 	.max_speed_delta_khz = 504000,
 	.init = acpuclk_7627_init,

@@ -2,7 +2,7 @@
 echo "Building & packing kernel for CM10 JLO"
 
 #remove any cross device incompatiblities
-make clean && make mrproper
+#make clean && make mrproper
 
 # select toolchain
 SEL_TC=/home/tkr/sony_kernel/android-toolchain-eabi/bin/
