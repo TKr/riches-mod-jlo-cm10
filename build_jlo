@@ -16,7 +16,7 @@ cp .config_new .config
 #exit 0
 
 # compile kernel
-ARCH=arm SUBARCH=arm CROSS_COMPILE=${SEL_TC}arm-eabi- make -j1
+ARCH=arm SUBARCH=arm CROSS_COMPILE=${SEL_TC}arm-eabi- make -j2
 
 if [ -f arch/arm/boot/zImage ]
 echo "Completed Jlo build"
